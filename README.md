@@ -1,2 +1,2 @@
 # EventifAI
-AI- Powered Event Aggregator for Students
+AI- Powered Event Aggregator for Students (HTML + TailwindCSS + JS)
