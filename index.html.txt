@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventifAI - Your AI-Powered Opportunity Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles for the futuristic look */
+        :root {
+            --bg-dark: #0F0F1A;
+            --bg-light: #F5F5FA;
+            --primary-glow: #A855F7;
+            --secondary-glow: #EC4899;
+            --accent-glow: #38BDF8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #E5E7EB;
+            overflow-x: hidden;
+        }
+
+        .light body {
+            background-color: var(--bg-light);
+            color: #1F2937;
+        }
+
+        /* Glassmorphism */
+        .glassmorphic {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .light .glassmorphic {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Static Glow for Headlines */
+        .static-glow {
+            text-shadow: 0 0 15px var(--primary-glow);
+        }
+        .light .static-glow {
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Animated Gradient Background */
+        .animated-gradient-bg {
+            background: linear-gradient(300deg, #0F0F1A, #A855F7, #EC4899, #38BDF8);
+            background-size: 400% 400%;
+            animation: gradient-flow 15s ease infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Wavy Section Divider */
+        .wavy-divider {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .wavy-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+
+        .wavy-divider .shape-fill {
+            fill: var(--bg-dark);
+        }
+        .light .wavy-divider .shape-fill {
+            fill: var(--bg-light);
+        }
+
+        /* 3D Event Cards */
+        .event-card {
+            transform-style: preserve-3d;
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+
+        .event-card:hover {
+            transform: translateZ(50px) rotateY(-5deg) rotateX(5deg);
+            box-shadow: 0 0 20px 5px var(--primary-glow), 0 0 30px 10px var(--secondary-glow);
+        }
+
+        /* Animated Hamburger Menu */
+        .hamburger-menu span {
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger-menu.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger-menu.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-menu.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Pulsing Chatbot Icon */
+        .chatbot-icon {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 15px 3px var(--accent-glow);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 25px 10px var(--accent-glow);
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Scroll-triggered Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="transition-colors duration-500">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 z-50" style="width: 0%;"></div>
+
+    <!-- Header -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 glassmorphic transition-all duration-300">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Static Logo -->
+            <a href="#" class="text-3xl font-extrabold flex items-center">
+                <svg id="logo-static" width="36" height="36" viewBox="0 0 100 100" class="mr-3"></svg>
+                <span class="tracking-tight">EventifAI</span>
+            </a>
+
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="hover:text-purple-400 transition-colors duration-300">Features</a>
+                <a href="#events" class="hover:text-purple-400 transition-colors duration-300">Events</a>
+                <a href="#calendar" class="hover:text-purple-400 transition-colors duration-300">Calendar</a>
+                <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full transition-transform duration-300 transform hover:scale-105">Sign Up</a>
+            </nav>
+            
+            <!-- Dark/Light Mode Toggle -->
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-white/10 transition-colors duration-300">
+                <i class="fas fa-sun text-xl hidden dark:block"></i>
+                <i class="fas fa-moon text-xl block dark:hidden"></i>
+            </button>
+
+            <!-- Hamburger Menu (Mobile) -->
+            <button id="hamburger-btn" class="md:hidden hamburger-menu z-50">
+                <span class="block w-6 h-0.5 bg-white my-1"></span>
+                <span class="block w-6 h-0.5 bg-white my-1"></span>
+                <span class="block w-6 h-0.5 bg-white my-1"></span>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glassmorphic absolute top-full left-0 w-full">
+            <div class="flex flex-col items-center py-4">
+                <a href="#features" class="py-2 hover:text-purple-400 transition-colors duration-300">Features</a>
+                <a href="#events" class="py-2 hover:text-purple-400 transition-colors duration-300">Events</a>
+                <a href="#calendar" class="py-2 hover:text-purple-400 transition-colors duration-300">Calendar</a>
+                <a href="#" class="mt-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full transition-transform duration-300 transform hover:scale-105">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="relative">
+        <section class="min-h-screen flex items-center justify-center animated-gradient-bg relative overflow-hidden">
+            <div class="absolute inset-0" id="particles-js"></div>
+            <div class="container mx-auto px-6 text-center z-10">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-4 static-glow">Unlock Your Potential.</h1>
+                <p class="text-lg md:text-2xl mb-8 max-w-3xl mx-auto text-gray-300 dark:text-gray-300">EventifAI curates the best hackathons, internships, and workshops, personalized just for you.</p>
+                
+                <!-- AI-Powered Search Bar -->
+                <div class="max-w-2xl mx-auto mt-12">
+                    <div class="relative glassmorphic p-2 rounded-full border-2 border-transparent focus-within:border-purple-500 transition-all duration-300 shadow-lg">
+                        <input type="text" placeholder="Search for 'web3 hackathon' or 'AI internship'..." class="w-full bg-transparent pl-12 pr-32 py-3 text-lg focus:outline-none placeholder-gray-400">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-purple-400 text-2xl">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-2 px-6 rounded-full transition-transform duration-300 transform hover:scale-105">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Wavy Divider -->
+            <div class="wavy-divider">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill transition-colors duration-500"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-bold">Why <span class="text-purple-400">EventifAI</span>?</h2>
+                <p class="text-lg text-gray-400 mt-2">An ecosystem designed for your growth.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Feature Card 1 -->
+                <div class="text-center p-8 glassmorphic rounded-2xl reveal">
+                    <div class="text-5xl text-purple-400 mb-4"><i class="fas fa-brain"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">AI Personalization</h3>
+                    <p class="text-gray-400">Our smart engine learns your interests to recommend hyper-relevant opportunities.</p>
+                </div>
+                <!-- Feature Card 2 -->
+                <div class="text-center p-8 glassmorphic rounded-2xl reveal" style="transition-delay: 200ms;">
+                    <div class="text-5xl text-pink-400 mb-4"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Vast Network</h3>
+                    <p class="text-gray-400">Access a curated database of global and local events from top companies and universities.</p>
+                </div>
+                <!-- Feature Card 3 -->
+                <div class="text-center p-8 glassmorphic rounded-2xl reveal" style="transition-delay: 400ms;">
+                    <div class="text-5xl text-sky-400 mb-4"><i class="fas fa-calendar-check"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Seamless Tracking</h3>
+                    <p class="text-gray-400">Never miss a deadline with our integrated calendar and smart reminders.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="py-20 container mx-auto px-6">
+            <div class="text-center mb-8 reveal">
+                <h2 class="text-4xl font-bold">Featured Opportunities</h2>
+            </div>
+            <!-- Filters -->
+            <div class="flex justify-center flex-wrap gap-3 mb-12 reveal">
+                <button class="filter-chip active">All</button>
+                <button class="filter-chip">Hackathons</button>
+                <button class="filter-chip">Internships</button>
+                <button class="filter-chip">Workshops</button>
+                <button class="filter-chip">Competitions</button>
+            </div>
+
+            <!-- Event Cards Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Card 1 -->
+                <div class="event-card glassmorphic rounded-2xl p-6 flex flex-col reveal">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-purple-500/20 text-purple-300 text-sm font-semibold px-3 py-1 rounded-full">Hackathon</span>
+                        <div class="text-2xl text-gray-500 hover:text-pink-400 cursor-pointer"><i class="far fa-bookmark"></i></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">AI for Good Global Summit</h3>
+                    <p class="text-gray-400 mb-4 flex-grow">Join developers worldwide to build AI solutions for social impact.</p>
+                    <div class="flex items-center text-sm text-gray-400 mb-4">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Online
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Deadline</span>
+                            <span>7 days left</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <button class="mt-auto w-full bg-white/10 hover:bg-white/20 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105">View Details</button>
+                </div>
+                <!-- Card 2 -->
+                <div class="event-card glassmorphic rounded-2xl p-6 flex flex-col reveal" style="transition-delay: 200ms;">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-sky-500/20 text-sky-300 text-sm font-semibold px-3 py-1 rounded-full">Internship</span>
+                        <div class="text-2xl text-pink-400"><i class="fas fa-bookmark"></i></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Frontend Developer Intern</h3>
+                    <p class="text-gray-400 mb-4 flex-grow">Shape the future of user interfaces at a fast-growing tech startup.</p>
+                    <div class="flex items-center text-sm text-gray-400 mb-4">
+                        <i class="fas fa-building mr-2"></i> TechCorp Inc.
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Deadline</span>
+                            <span>2 weeks left</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-sky-500 to-green-500 h-2 rounded-full" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <button class="mt-auto w-full bg-white/10 hover:bg-white/20 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105">Apply Now</button>
+                </div>
+                <!-- Card 3 -->
+                <div class="event-card glassmorphic rounded-2xl p-6 flex flex-col reveal" style="transition-delay: 400ms;">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-pink-500/20 text-pink-300 text-sm font-semibold px-3 py-1 rounded-full">Workshop</span>
+                        <div class="text-2xl text-gray-500 hover:text-pink-400 cursor-pointer"><i class="far fa-bookmark"></i></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Intro to Quantum Computing</h3>
+                    <p class="text-gray-400 mb-4 flex-grow">A hands-on workshop exploring the fundamentals of quantum mechanics.</p>
+                    <div class="flex items-center text-sm text-gray-400 mb-4">
+                        <i class="fas fa-university mr-2"></i> Quantum University
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Deadline</span>
+                            <span>3 days left</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-pink-500 to-yellow-500 h-2 rounded-full" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <button class="mt-auto w-full bg-white/10 hover:bg-white/20 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105">Register</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Interactive Calendar Section -->
+        <section id="calendar" class="py-20 container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl font-bold">Your Opportunity Calendar</h2>
+                <p class="text-lg text-gray-400 mt-2">Drag, drop, and organize your journey.</p>
+            </div>
+            <div class="glassmorphic rounded-2xl p-6 reveal">
+                <!-- Calendar Header -->
+                <div class="flex justify-between items-center mb-4">
+                    <button class="p-2 rounded-full hover:bg-white/10"><i class="fas fa-chevron-left"></i></button>
+                    <h3 class="text-2xl font-bold">July 2025</h3>
+                    <button class="p-2 rounded-full hover:bg-white/10"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <!-- Calendar Grid -->
+                <div class="grid grid-cols-7 gap-2 text-center">
+                    <div class="font-bold text-gray-400">Sun</div>
+                    <div class="font-bold text-gray-400">Mon</div>
+                    <div class="font-bold text-gray-400">Tue</div>
+                    <div class="font-bold text-gray-400">Wed</div>
+                    <div class="font-bold text-gray-400">Thu</div>
+                    <div class="font-bold text-gray-400">Fri</div>
+                    <div class="font-bold text-gray-400">Sat</div>
+                    
+                    <!-- Calendar Days (Sample) -->
+                    <div class="text-gray-600">30</div>
+                    <div>1</div>
+                    <div>2</div>
+                    <div class="relative bg-purple-500/30 rounded-lg">3 <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-purple-300 rounded-full"></span></div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>
+                    <div>10</div>
+                    <div class="relative bg-pink-500/30 rounded-lg">11<span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-pink-300 rounded-full"></span></div>
+                    <div>12</div>
+                    <div>13</div>
+                    <div>14</div>
+                    <div>15</div>
+                    <div>16</div>
+                    <div>17</div>
+                    <div>18</div>
+                    <div>19</div>
+                    <div>20</div>
+                    <div>21</div>
+                    <div>22</div>
+                    <div>23</div>
+                    <div>24</div>
+                    <div>25</div>
+                    <div>26</div>
+                    <div>27</div>
+                    <div>28</div>
+                    <div>29</div>
+                    <div>30</div>
+                    <div>31</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- AI Chatbot -->
+<div id="chatbot-container" class="fixed bottom-6 right-6 z-30">
+        <button id="chatbot-toggle" class="chatbot-icon w-14 h-14 bg-gradient-to-br from-sky-400 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl shadow-2xl">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div id="chatbot-window" class="hidden absolute bottom-20 right-0 w-80 h-96 glassmorphic rounded-2xl flex flex-col overflow-hidden transition-all duration-500 transform translate-y-8 opacity-0">
+            <!-- Chat Header -->
+            <div class="p-4 bg-white/10 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-white mr-3">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold">AI Assistant</h4>
+                    <p class="text-xs text-green-400">Online</p>
+                </div>
+            </div>
+            <!-- Chat Body -->
+            <div class="flex-grow p-4 space-y-4 overflow-y-auto">
+                <div class="flex">
+                    <div class="bg-white/10 p-3 rounded-lg max-w-xs">
+                        <p>Hello! How can I help you find the perfect opportunity today?</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Chat Input -->
+            <div class="p-2 border-t border-white/10">
+                <input type="text" placeholder="Ask me anything..." class="w-full bg-transparent p-2 focus:outline-none">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900/50 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-3xl font-bold mb-4">EventifAI</h3>
+            <div class="flex justify-center space-x-6 my-6">
+                <a href="#" class="text-2xl hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-2xl hover:text-purple-400 transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-2xl hover:text-purple-400 transition-colors"><i class="fab fa-github"></i></a>
+            </div>
+            <p class="text-gray-500">&copy; 2025 EventifAI. All rights reserved. Empowering the next generation of innovators.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Theme Toggle ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            themeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                html.classList.toggle('light');
+                // Re-initialize particles for new theme
+                initParticles();
+                // Update wavy divider color
+                const wavyFill = document.querySelector('.wavy-divider .shape-fill');
+                wavyFill.style.fill = html.classList.contains('dark') ? 'var(--bg-dark)' : 'var(--bg-light)';
+            });
+
+            // --- Hamburger Menu ---
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            hamburgerBtn.addEventListener('click', () => {
+                hamburgerBtn.classList.toggle('open');
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- Sticky Navbar ---
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('py-2');
+                    navbar.classList.remove('py-3');
+                } else {
+                    navbar.classList.add('py-3');
+                    navbar.classList.remove('py-2');
+                }
+            });
+
+            // --- Static Logo ---
+            const logo = document.getElementById('logo-static');
+            logo.innerHTML = `
+                <defs>
+                    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--primary-glow')}" />
+                        <stop offset="100%" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-glow')}" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="45" fill="none" stroke-width="8" stroke="url(#logo-gradient)" />
+                <path d="M30 70 L 50 30 L 70 70 M 40 55 H 60" stroke-width="8" stroke="white" fill="none" />
+            `;
+
+            // --- Particles.js ---
+            function initParticles() {
+                const isDark = html.classList.contains('dark');
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": { "value": isDark ? 80 : 50, "density": { "enable": true, "value_area": 800 } },
+                        "color": { "value": isDark ? "#ffffff" : "#333333" },
+                        "shape": { "type": "circle" },
+                        "opacity": { "value": 0.5, "random": true },
+                        "size": { "value": 3, "random": true },
+                        "line_linked": { "enable": true, "distance": 150, "color": isDark ? "#ffffff" : "#555555", "opacity": 0.4, "width": 1 },
+                        "move": { "enable": true, "speed": 2, "direction": "none", "out_mode": "out" }
+                    },
+                    "interactivity": {
+                        "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+                        "modes": { "repulse": { "distance": 100 }, "push": { "particles_nb": 4 } }
+                    }
+                });
+            }
+            initParticles();
+
+            // --- Scroll-triggered Animations ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // --- Filter Chips ---
+            const filterChips = document.querySelectorAll('.filter-chip');
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    // Add filtering logic here
+                });
+            });
+            // Style active chip
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .filter-chip {
+                    padding: 0.5rem 1.5rem;
+                    border-radius: 9999px;
+                    font-weight: 600;
+                    transition: all 0.3s;
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+                .filter-chip:hover {
+                    background-color: rgba(255, 255, 255, 0.2);
+                    transform: translateY(-2px);
+                }
+                .filter-chip.active {
+                    background: linear-gradient(to right, var(--primary-glow), var(--secondary-glow));
+                    color: white;
+                    box-shadow: 0 0 15px var(--primary-glow);
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // --- Chatbot Toggle ---
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            chatbotToggle.addEventListener('click', () => {
+                const isHidden = chatbotWindow.classList.contains('hidden');
+                if (isHidden) {
+                    chatbotWindow.classList.remove('hidden');
+                    setTimeout(() => {
+                        chatbotWindow.classList.remove('opacity-0', 'translate-y-8');
+                    }, 10);
+                } else {
+                    chatbotWindow.classList.add('opacity-0', 'translate-y-8');
+                    setTimeout(() => {
+                        chatbotWindow.classList.add('hidden');
+                    }, 500);
+                }
+            });
+
+            // --- Scroll Progress Bar ---
+            const scrollProgress = document.getElementById('scroll-progress');
+            window.addEventListener('scroll', () => {
+                const totalHeight = document.body.scrollHeight - window.innerHeight;
+                const progress = (window.pageYOffset / totalHeight) * 100;
+                scrollProgress.style.width = `${progress}%`;
+            });
+
+        });
+    </script>
+</body>
+</html>
